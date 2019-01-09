@@ -80,6 +80,7 @@ class f_embedding_bidirectionalLSTM:
                 attented_features_summed = tf.reduce_sum(attented_features, axis=1)
                 c_h = (c_h[0], c_h[1] + attented_features_summed)
                 x, h_c = fw_lstm_cells_encoder(inputs=target_set_embeddings, state=c_h)
+                c_h[0] = h_c
                 attentional_softmax = tf.layers.dense(x, units=k, activation=tf.nn.softmax, reuse=self.reuse)
                 self.reuse = True
 
